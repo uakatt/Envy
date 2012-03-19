@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require 'thor'
+
+require File.join(File.dirname(File.expand_path(__FILE__)), '..', 'lib', 'envy')
+
+class EnvyRunner < Thor
+  desc "build_number", "Runs selenium commands against a KC/KFS environment, returning the build number"
+
+  def build_number
+    driver = Envy::WebDriver.new
+    driver.navigate.to "https://kf-dev.mosaic.arizona.edu/kfs-dev"
+    puts driver.build_number
+    driver.quit
+  end
+end
+
+EnvyRunner.start
