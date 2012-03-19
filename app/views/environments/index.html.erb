@@ -1,0 +1,29 @@
+<h1>Listing environments</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Url</th>
+    <th>App</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @environments.each do |environment| %>
+  <tr>
+    <td><%= environment.code %></td>
+    <td><%= environment.name %></td>
+    <td><%= environment.url %></td>
+    <td><%= environment.app %></td>
+    <td><%= link_to 'Show', environment %></td>
+    <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
+    <td><%= link_to 'Destroy', environment, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Environment', new_environment_path %>
