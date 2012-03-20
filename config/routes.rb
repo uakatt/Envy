@@ -1,5 +1,7 @@
 Envy::Application.routes.draw do
-  resources :environments
+  resources :environments do
+    get :envestigate__build_number, :on => :member
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

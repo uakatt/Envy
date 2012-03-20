@@ -1,15 +1,63 @@
 #!/usr/bin/env ruby
+require 'highline/import'
 require 'thor'
 
 require File.join(File.dirname(File.expand_path(__FILE__)), '..', 'lib', 'envy')
 
 class EnvyRunner < Thor
-  desc "build_number", "Runs selenium commands against a KC/KFS environment, returning the build number"
+  desc "build_number ENV", "Runs selenium commands against ENV, a KC/KFS environment, returning the build number"
+  method_option :headless, :aliases => '-h', :desc => "Run headlessly? Default is true", :type => :boolean, :default => true
+  method_option :interactive, :aliases => '-i', :desc => "Get more necessary information interactively"
+  method_option :url, :desc => "URL if non-standard, like kfs-sup", :default => nil
 
-  def build_number
-    driver = Envy::WebDriver.new
-    driver.navigate.to "https://kf-dev.mosaic.arizona.edu/kfs-dev"
-    puts driver.build_number
+  def build_number(environment)
+    driver = Envy::WebDriver.new(:is_headless => options[:headless])
+    config = {}
+    Envy.parse_config_file_into(config)
+    driver.username = config[:username]
+    driver.password = config[:password]
+
+    begin
+      driver.load(environment, options[:url])
+      puts driver.build_number
+    rescue WebauthUsernameOrPasswordMissing => e
+      if options[:interactive]
+        driver.username = $terminal.ask("NetID:  ")    { |q| q.echo = true }
+        driver.password = $terminal.ask("Password:  ") { |q| q.echo = "*" }
+        retry
+      else
+        raise e
+      end
+    end
+
+    driver.quit
+  end
+
+
+  desc "accounts_count ENV", "Runs selenium commands against ENV, a KFS environment, returning the number of accounts that start with 'A'"
+  method_option :headless, :aliases => '-h', :desc => "Run headlessly? Default is true", :type => :boolean, :default => true
+  method_option :interactive, :aliases => '-i', :desc => "Get more necessary information interactively"
+  method_option :url, :desc => "URL if non-standard, like kfs-sup", :default => nil
+  def accounts_count(environment)
+    driver = Envy::WebDriver.new(:is_headless => options[:headless])
+    config = {}
+    Envy.parse_config_file_into(config)
+    driver.username = config[:username]
+    driver.password = config[:password]
+
+    begin
+      driver.load(environment, options[:url])
+      puts driver.accounts_count(:chartOfAccountsCode => 'UA', :accountName => 'A%')
+    rescue WebauthUsernameOrPasswordMissing => e
+      if options[:interactive]
+        driver.username = $terminal.ask("NetID:  ")    { |q| q.echo = true }
+        driver.password = $terminal.ask("Password:  ") { |q| q.echo = "*" }
+        retry
+      else
+        raise e
+      end
+    end
+
     driver.quit
   end
 end

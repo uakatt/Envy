@@ -2,7 +2,7 @@ class EnvironmentsController < ApplicationController
   # GET /environments
   # GET /environments.json
   def index
-    @environments = Environment.all
+    @environments = Environment.order(:code)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -78,6 +78,32 @@ class EnvironmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to environments_url }
       format.json { head :no_content }
+    end
+  end
+
+  # GET /environments/1/envestigate__build_number
+  # GET /environments/1/envestigate__build_number.json
+  def envestigate__build_number
+    @environment = Environment.find(params[:id])
+
+    driver = Envy::WebDriver.new(:logger => logger)
+    config = {}
+    Envy.parse_config_file_into(config)
+    driver.username = config[:username]
+    driver.password = config[:password]
+    #if @environment.url and not @environment.url.empty?
+      #driver.navigate.to @environment.url
+    #else
+      #driver.navigate.to @environment.default_url
+    #end
+    logger.info("Envy::WebDriver loading (#{@environment.code.inspect}, #{@environment.url.inspect})")
+    driver.load(@environment.code, @environment.url)
+    @build_number = driver.build_number
+
+    respond_to do |format|
+      format.html # envestigate__build_number.html.erb
+      format.json { render json: @environment }
+      format.js   # envestigate__build_number.js.erb
     end
   end
 end

@@ -57,3 +57,5 @@ module Envy
     config.assets.version = '1.0'
   end
 end
+
+require_relative '../lib/envy'

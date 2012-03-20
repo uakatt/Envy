@@ -36,3 +36,9 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem 'selenium-webdriver'
+gem 'headless'
+#gem 'resque'
+gem 'private_pub'
+

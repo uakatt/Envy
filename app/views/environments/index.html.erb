@@ -1,4 +1,4 @@
-<h1>Listing environments</h1>
+<h1>Environments</h1>
 
 <table>
   <tr>
@@ -6,24 +6,37 @@
     <th>Name</th>
     <th>Url</th>
     <th>App</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Actions</th>
+    <th>ENVestigate</th>
+    <th>Results</th>
   </tr>
 
 <% @environments.each do |environment| %>
   <tr>
-    <td><%= environment.code %></td>
+    <td><%= link_to environment.code, environment %></td>
     <td><%= environment.name %></td>
-    <td><%= environment.url %></td>
+    <td>
+      <% if environment.url and environment.url != '' %>
+        <a href="<%= environment.url %>"><%= environment.url %></a>
+      <% else %>
+        ~ <a href="<%= environment.default_url %>"><%= environment.default_url %></a>
+      <% end %>
+    </td>
     <td><%= environment.app %></td>
-    <td><%= link_to 'Show', environment %></td>
-    <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
-    <td><%= link_to 'Destroy', environment, confirm: 'Are you sure?', method: :delete %></td>
+    <td>
+      <%= link_to 'Edit', edit_environment_path(environment) %>
+      <%= link_to '[X]', environment, confirm: 'Are you sure?', method: :delete %>
+    </td>
+    <td>
+      <%= link_to 'Build Number', "/environments/#{environment.id}/envestigate__build_number", :remote => true %>
+      <%= link_to '# of Accounts', "/environments/#{environment.id}/envestigate/accounts_count" %>
+    </td>
+    <td id="<%= environment.code.gsub(/ /, '-') %>-results">
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Environment', new_environment_path %>
+<%= link_to 'Add Environment', new_environment_path %>

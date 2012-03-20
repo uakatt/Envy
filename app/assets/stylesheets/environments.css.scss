@@ -1,3 +1,58 @@
 // Place all the styles related to the environments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$ua-red: #CC0033;
+$ua-blue: #003366;
+
+body {
+  color: #111111;
+}
+
+strong {
+  color: #000000;
+}
+
+h1 {
+  color: $ua-red;
+  font-family: 'Volkhov',serif;
+  font-size: 3em;
+  font-weight: 400;
+}
+
+p, ol, ul, td, th {
+  font-family: 'Open Sans',verdana,arial,helvetica,sans-serif;
+}
+
+th {
+  font-weight: 700;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  border: solid 1px #666666;
+  color: $ua-blue;
+  padding: 2px 4px;
+}
+
+table td {
+  border: solid 1px #999999;
+  padding: 2px 4px;
+}
+
+a:link,
+a:visited,
+a:active {
+  background: none;
+  color: $ua-blue;
+  text-decoration: none;
+}
+
+a:hover {
+  background: none;
+  color: $ua-red;
+  border-bottom: solid 1px #003366;
+}
