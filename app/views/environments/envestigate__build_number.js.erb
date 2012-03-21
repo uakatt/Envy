@@ -1,1 +1,7 @@
-$("#<%= @environment.code.gsub(/ /, '-') %>-results").html("Build Number: <%= @build_number %>");
+<% publish_to "/envestigate/new" do %>
+  <% if @environment.id % 2 == 0 %>
+    $("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"assets/ajax-loader-003366.gif\" />");
+  <% else %>
+    $("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"assets/ajax-loader-CC0033.gif\" />");
+  <% end %>
+<% end %>

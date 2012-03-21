@@ -14,9 +14,20 @@ strong {
 }
 
 h1 {
+  color: $ua-blue;
+  font-family: 'Volkhov',serif;
+  font-size: 4em;
+  font-weight: 400;
+  line-height: 1em;
+  margin: 0.2em 0 0.6em 0;
+  text-shadow: 2px 2px 1px #77CCFF;
+}
+
+h2 {
   color: $ua-red;
   font-family: 'Volkhov',serif;
-  font-size: 3em;
+  font-size: 2.2em;
+  margin: 0.4em 0em;
   font-weight: 400;
 }
 
@@ -35,12 +46,17 @@ table {
 table th {
   border: solid 1px #666666;
   color: $ua-blue;
-  padding: 2px 4px;
+  padding: 3px 4px 2px;
 }
 
 table td {
   border: solid 1px #999999;
-  padding: 2px 4px;
+  padding: 3px 4px 2px;
+}
+
+table td.loading {
+  padding: 2px 4px 1px;
+  text-align: center;
 }
 
 a:link,

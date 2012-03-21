@@ -42,6 +42,18 @@ module Envy
       hash[key.to_sym] = value
     end
   end
+
+  def self.driver
+    return @@driver if class_variable_defined? '@@driver'
+
+    @@driver = Envy::WebDriver.new#(:logger => logger)
+    webdriver_config = {}
+    parse_config_file_into(webdriver_config)
+    @@driver.username = webdriver_config[:username]
+    @@driver.password = webdriver_config[:password]
+
+    return @@driver
+  end
 end
 
 require 'envy/errors'

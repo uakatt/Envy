@@ -39,6 +39,7 @@ gem 'jquery-rails'
 
 gem 'selenium-webdriver'
 gem 'headless'
-#gem 'resque'
+gem 'resque'
 gem 'private_pub'
+gem 'thin'
 

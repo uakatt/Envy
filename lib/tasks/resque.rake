@@ -1,3 +1,4 @@
-require 'rescue/tasks'
+require 'resque/tasks'
 
-task 'rescue:setup' => :environment
+task 'resque:setup' => :environment
+

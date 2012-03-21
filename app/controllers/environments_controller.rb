@@ -86,24 +86,24 @@ class EnvironmentsController < ApplicationController
   def envestigate__build_number
     @environment = Environment.find(params[:id])
 
-    driver = Envy::WebDriver.new(:logger => logger)
-    config = {}
-    Envy.parse_config_file_into(config)
-    driver.username = config[:username]
-    driver.password = config[:password]
-    #if @environment.url and not @environment.url.empty?
-      #driver.navigate.to @environment.url
-    #else
-      #driver.navigate.to @environment.default_url
-    #end
-    logger.info("Envy::WebDriver loading (#{@environment.code.inspect}, #{@environment.url.inspect})")
-    driver.load(@environment.code, @environment.url)
-    @build_number = driver.build_number
+    #driver = Envy::WebDriver.new(:logger => logger)
+    #config = {}
+    #Envy.parse_config_file_into(config)
+    #driver.username = config[:username]
+    #driver.password = config[:password]
+    #logger.info("Envy::WebDriver loading (#{@environment.code.inspect}, #{@environment.url.inspect})")
+    #driver.load(@environment.code, @environment.url)
+    #@build_number = driver.build_number
 
-    respond_to do |format|
-      format.html # envestigate__build_number.html.erb
-      format.json { render json: @environment }
-      format.js   # envestigate__build_number.js.erb
-    end
+    #PrivatePub.publish_to("/envestigate/new",
+    #                      "$(\"##{@environment.code.gsub(/ /, '-')}-results\").html(\"Build Number: #{@build_number}\");")
+
+    Resque.enqueue(Envestigators::BuildNumber, @environment.id)
+
+    #respond_to do |format|
+    #  format.html # envestigate__build_number.html.erb
+    #  format.json { render json: @environment }
+    #  format.js   # envestigate__build_number.js.erb
+    #end
   end
 end
