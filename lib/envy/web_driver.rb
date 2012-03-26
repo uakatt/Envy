@@ -21,6 +21,8 @@ class Envy::WebDriver
     end
 
     @driver = Selenium::WebDriver.for :firefox, :profile => @profile
+    @screenshots_dir = File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'public', 'system', 'screenshots')
+    @tmp_screenshots_dir = File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'tmp', 'screenshots')
   end
 
   def build_number
@@ -51,6 +53,54 @@ class Envy::WebDriver
   def quit
     @driver.quit
     @headless.destroy if @is_headless
+  end
+
+  def screenshot_build_number
+    build = @driver.find_element(:id, 'build')
+    screenshot_element(build, 'build.png', [4, 4, 6])
+  end
+
+  def screenshot_element(element, file_name, margin=0)
+    x_position = element.location.x
+    y_position = element.location.y
+    width      = element.size.width
+    height     = element.size.height
+
+    margin_top = margin_right = margin_bottom = margin_left = 0
+    case
+    when margin.is_a?(Fixnum)
+      margin_top = margin_right = margin_bottom = margin_left = margin
+    when margin.is_a?(Array)
+      case margin.size
+      when 1
+        margin_top = margin_right = margin_bottom = margin_left = margin[0]
+      when 2
+        margin_top = margin_bottom = margin[0]
+        margin_right = margin_left = margin[1]
+      when 3
+        margin_top                 = margin[0]
+        margin_right = margin_left = margin[1]
+        margin_bottom              = margin[2]
+      else
+        margin_top    = margin[0]
+        margin_right  = margin[1]
+        margin_bottom = margin[2]
+        margin_left   = margin[3]
+      end
+    end
+
+    adj_x_position = x_position - margin_left
+    adj_y_position = y_position - margin_top
+    adj_x_position = [adj_x_position, 0].max
+    adj_y_position = [adj_y_position, 0].max
+
+    width += margin_right + (x_position - adj_x_position)
+    height += margin_bottom + (y_position - adj_y_position)
+
+    @driver.save_screenshot(File.join(@tmp_screenshots_dir, 'foo.png'))
+    image = ChunkyPNG::Image.from_file(File.join(@tmp_screenshots_dir, 'foo.png'))
+    image = image.crop adj_x_position, adj_y_position, width, height
+    image.to_image.save(File.join(@screenshots_dir, file_name), :fast_rgba)
   end
 
   def select_frame(id)

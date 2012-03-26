@@ -3,6 +3,8 @@ $LOAD_PATH << File.dirname(File.expand_path(__FILE__))
 require 'forwardable'
 require 'selenium-webdriver'
 require 'headless'
+#require 'chunky_png'
+require 'oily_png'
 
 module Envy
   ACCEPTED_OPTIONS = %w{username password}
