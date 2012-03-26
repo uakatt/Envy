@@ -63,17 +63,17 @@
   <tr>
     <td>
       <strong>Build Number</strong>
-      <a href="/environments/<%= @environment.id %>/envestigate__build_number" data-remote="true" style="float:right; margin: 0">Go</a>
+      <a href="/environments/<%= @environment.id %>/envestigate__build_number" data-remote="true" style="float:right; margin: 0" class="button gray">Go</a>
       <p>Load the main menu and extracts the build number from the page.</p>
     </td>
     <td id="build-number-results"></td><td id="build-number-screenshot" class="screenshot"></td>
   </tr>
   <tr>
     <td>
-      <button style="float:right; margin:0">Go</button>
+      <a href="/environments/<%= @environment.id %>/envestigate__accounts_count" data-remote="true" style="float:right; margin: 0" class="button gray">Go</a>
       <strong>Accounts Count</strong>
       <p>Perform an Account Search, using <strong>Chart Code</strong> "UA" and <strong>Account Name</strong> "A%" (all accounts that begin with A). Display the number of results.</p>
     </td>
-    <td></td><td></td>
+    <td id="accounts-count-results"></td><td id="accounts-count-screenshot" class="screenshot"></td>
   </tr>
 </table>

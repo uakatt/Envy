@@ -7,7 +7,7 @@
       return $("#" + data.env + "-results").addClass('loading').html("<img src=\"" + data.loading + "\" />");
     } else if (data.message) {
       $("#" + data.env + "-results").removeClass('loading').html(data.message);
-      if (data.error) { $("#" + data.env + "-results").addClass(data.error); }
+      if (data.add_class) { $("#" + data.env + "-results").addClass(data.add_class); }
       return $("#" + data.env + "-results");
     }
   });

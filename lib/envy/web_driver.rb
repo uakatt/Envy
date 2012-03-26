@@ -57,7 +57,7 @@ class Envy::WebDriver
 
   def screenshot_build_number
     build = @driver.find_element(:id, 'build')
-    screenshot_element(build, 'build.png', [4, 4, 6])
+    screenshot_element(build, 'build.png', [5, 5, 8])
   end
 
   def screenshot_element(element, file_name, margin=0)
