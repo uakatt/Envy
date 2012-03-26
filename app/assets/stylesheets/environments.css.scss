@@ -13,6 +13,14 @@ strong {
   color: #000000;
 }
 
+h1 strong, h2 strong, h3 strong, h4 strong, h5 strong, h6 strong {
+  font-weight: 700;
+}
+
+p strong {
+  font-weight: 600;
+}
+
 h1 {
   color: $ua-blue;
   font-family: 'Volkhov',serif;
@@ -77,4 +85,17 @@ a:hover {
   background: none;
   color: $ua-red;
   border-bottom: solid 1px #003366;
+}
+
+p.attribute {
+  font-size: 1.16em;
+  margin: 0.4em 0;
+}
+
+td.screenshot {
+  text-align: center;
+}
+
+td.screenshot img {
+  border: solid 1px #000000;
 }

@@ -1,22 +1,79 @@
+<%= subscribe_to "/envestigate/new" %>
+<script>
+(function() {
+
+  PrivatePub.subscribe("/envestigate/new", function(data, channel) {
+    if (data.loading) {
+      return $("#" + data.envestigation + "-results").addClass('loading').html("<img src=\"" + data.loading + "\" />");
+    } else if (data.message) {
+      $("#" + data.envestigation + "-results").removeClass('loading').html(data.message);
+      if (data.error) { $("#" + data.envestigation + "-results").addClass(data.error); }
+
+      if (data.screenshot) {
+        $("#" + data.envestigation + "-screenshot")
+          .html("<img src='/system/screenshots/" + data.screenshot + "' />")
+      }
+
+      return $("#" + data.envestigation + "-results");
+    }
+  });
+
+}).call(this);
+</script>
+
 <h2><%= @environment.name %></h2>
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Code:</b>
+<p class="attribute">
+  <strong>Code:</strong>
   <%= @environment.code %>
 </p>
 
-<p>
-  <b>Url:</b>
-  <%= @environment.url %>
+<p class="attribute">
+  <strong>URL:</strong>
+  <% if @environment.url and @environment.url != '' %>
+    <a href="<%= @environment.url %>"><%= @environment.url %></a>
+  <% else %>
+    Assumed to be <a href="<%= @environment.default_url %>"><%= @environment.default_url %></a>
+  <% end %>
 </p>
 
-<p>
-  <b>App:</b>
+<p class="attribute">
+  <strong>App:</strong>
   <%= @environment.app %>
 </p>
 
 
 <%= link_to 'Edit', edit_environment_path(@environment) %> |
 <%= link_to 'Back', environments_path %>
+
+<br /><br />
+
+<h2><strong style="color: #BB0000; letter-spacing: -0.05em">ENV</strong><span style="letter-spacing: 0.04em">estigations</span></h2>
+
+<p>You can kick of a small envestigation of <strong style="color: #003366;"><%= @environment.code %></strong>. Each envestigation will run a Selenium script against the environment, returning various results to you.</p>
+
+<table>
+  <tr>
+    <th style="width: 420px;">ENVestigations</th>
+    <th style="width: 200px;">Results</th>
+    <th style="width: 260px;">Screens</th>
+  </tr>
+  <tr>
+    <td>
+      <strong>Build Number</strong>
+      <a href="/environments/<%= @environment.id %>/envestigate__build_number" data-remote="true" style="float:right; margin: 0">Go</a>
+      <p>Load the main menu and extracts the build number from the page.</p>
+    </td>
+    <td id="build-number-results"></td><td id="build-number-screenshot" class="screenshot"></td>
+  </tr>
+  <tr>
+    <td>
+      <button style="float:right; margin:0">Go</button>
+      <strong>Accounts Count</strong>
+      <p>Perform an Account Search, using <strong>Chart Code</strong> "UA" and <strong>Account Name</strong> "A%" (all accounts that begin with A). Display the number of results.</p>
+    </td>
+    <td></td><td></td>
+  </tr>
+</table>

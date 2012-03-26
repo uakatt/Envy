@@ -1,4 +1,19 @@
 <%= subscribe_to "/envestigate/new" %>
+<script>
+(function() {
+
+  PrivatePub.subscribe("/envestigate/new", function(data, channel) {
+    if (data.loading) {
+      return $("#" + data.env + "-results").addClass('loading').html("<img src=\"" + data.loading + "\" />");
+    } else if (data.message) {
+      $("#" + data.env + "-results").removeClass('loading').html(data.message);
+      if (data.error) { $("#" + data.env + "-results").addClass(data.error); }
+      return $("#" + data.env + "-results");
+    }
+  });
+
+}).call(this);
+</script>
 
 <% @environments.group_by(&:app).each do |app_name, environments| %>
   <h2><%= app_name %> Environments</h2>

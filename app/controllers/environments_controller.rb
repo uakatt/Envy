@@ -87,6 +87,9 @@ class EnvironmentsController < ApplicationController
     @environment = Environment.find(params[:id])
 
     Resque.enqueue(Envestigators::BuildNumber, @environment.id)
+
+    #PrivatePub.publish_to("/envestigate/new", message: "Foo")
+    #$("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"/assets/     ajax-loader-003366.gif\" />");
   end
 
   # GET /environments/1/envestigate__accounts_count
