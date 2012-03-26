@@ -31,8 +31,11 @@
         <%= link_to '[X]', environment, confirm: 'Are you sure?', method: :delete %>
       </td>
       <td>
-        <%= link_to 'Build Number', "/environments/#{environment.id}/envestigate__build_number", :remote => true %>
-        <%= link_to '# of Accounts', "/environments/#{environment.id}/envestigate/accounts_count" %>
+        <%= link_to 'Build Number', "/environments/#{environment.id}/envestigate__build_number", :remote => true, :style => 'font-size: 0.85em;' %> |
+        <% if app_name == 'KFS' %>
+          <%= link_to '# of Accounts', "/environments/#{environment.id}/envestigate__accounts_count", :remote => true, :style => 'font-size: 0.85em;' %> |
+        <% end %>
+        <%= link_to '[More...]', environment, :style => 'font-size: 0.85em;' %>
       </td>
       <td id="<%= environment.code.gsub(/ /, '-') %>-results">
       </td>

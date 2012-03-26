@@ -59,6 +59,12 @@ table td.loading {
   text-align: center;
 }
 
+table td.error {
+  background-color: #FFDDDD;
+  color: #FF0000;
+  font-weight: bold;
+}
+
 a:link,
 a:visited,
 a:active {
