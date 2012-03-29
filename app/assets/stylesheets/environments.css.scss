@@ -100,6 +100,17 @@ td.screenshot img {
   border: solid 1px #000000;
 }
 
+span.tiny-note {
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+span.tiny-error {
+  color: #990000;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
 /* from http://webdesignerwall.com/tutorials/css3-gradient-buttons */
 
 a.button {

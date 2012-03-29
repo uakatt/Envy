@@ -107,4 +107,15 @@ class EnvironmentsController < ApplicationController
 
     Resque.enqueue(Melodies::SystemInformation, @environment.id)
   end
+
+  # GET /environments/state_of_the_universe
+  # GET /environments/state_of_the_universe.json
+  def state_of_the_universe
+    @environments = Environment.order(:code)
+
+    respond_to do |format|
+      format.html # state_of_the_universe.html.erb
+      format.json { render json: @environments }
+    end
+  end
 end

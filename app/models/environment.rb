@@ -9,4 +9,8 @@ class Environment < ActiveRecord::Base
       "https://#{app[0,2]}-#{name}.mosaic.arizona.edu/#{app}-#{name}"
     end
   end
+
+  def latest_melodie_snapshot
+    melodie_snapshots.order(:taken_at).first
+  end
 end

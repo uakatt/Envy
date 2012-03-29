@@ -1,0 +1,78 @@
+<%= subscribe_to "/envestigate/new" %>
+<script>
+(function() {
+
+  PrivatePub.subscribe("/envestigate/new", function(data, channel) {
+    if (data.loading) {
+      return $("#" + data.env + "-installed").addClass('loading').html("<img src=\"" + data.loading + "\" />");
+    } else if (data.message) {
+      $("#" + data.env + "-installed").removeClass('loading').html(data.message);
+      if (data.add_class) { $("#" + data.env + "-installed").addClass(data.add_class); }
+      return $("#" + data.env + "-installed");
+    }
+  });
+
+}).call(this);
+
+(function() {
+  <% @environments.each do |env| %>
+    $.get("/environments/<%= env.id %>/envestigate__build_number");
+  <% end %>
+}).call(this);
+</script>
+
+<h2>State of the Mosaic/Kuali Universe</h2>
+
+<table>
+  <% @environments.group_by(&:app).each do |app_name, environments| %>
+    <tr>
+      <th style="border-top: solid 2px black;">Code</th>
+      <th style="border-top: solid 2px black;">Installed</th>
+      <th style="border-top: solid 2px black;">kfc</th>
+      <th style="border-top: solid 2px black;">Memory (App Server)</th>
+      <th style="border-top: solid 2px black;">Java</th>
+      <th style="border-top: solid 2px black;">IcedTea</th>
+      <th style="border-top: solid 2px black;">Apache</th>
+      <th style="border-top: solid 2px black;">Next</th>
+      <th style="border-top: solid 2px black;">Schedule</th>
+      <th style="border-top: solid 2px black;">Owner</th>
+    </tr>
+    <tr><th colspan="11" style="font-size: 1.4em;"><%= app_name %> Environments</tr>
+
+    <% environments.each do |environment| %>
+    <tr>
+      <td>
+        <%= link_to environment.code, environment, :title => environment.name %>
+        <% if environment.url and environment.url != '' %>
+          | <a href="<%= environment.url %>">[go to there]</a>
+        <% else %>
+          | <a href="<%= environment.default_url %>">[go to there]</a>
+        <% end %>
+      </td>
+      <td id="<%= environment.code.gsub(/ /, '-') %>-installed"></td>
+      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td>
+        <% if environment.melodie_snapshots.empty? %>
+          <span class='tiny-error'>no melodie snapshots</span>
+        <% else %>
+          <%= environment.latest_melodie_snapshot.system_information[:java_memory_used].inspect %>
+        <% end %>
+      </td>
+      <td>
+        <% if environment.melodie_snapshots.empty? %>
+          <span class='tiny-error'>no melodie snapshots</span>
+        <% else %>
+          <%= environment.latest_melodie_snapshot.system_details[:java] %>
+        <% end %>
+      </td>
+      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td><span class='tiny-note'>not tracked yet</span></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+<br />
+
