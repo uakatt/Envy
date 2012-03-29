@@ -1,0 +1,16 @@
+<h2><%= @environment.code %></h2>
+
+<p id="notice"><%= notice %></p>
+
+<table>
+  <tr>
+    <th>Host</th>
+    <th>Taken At</th>
+  </tr>
+  <% @melodie_snapshots.each do |snapshot| %>
+    <tr>
+      <td><%= snapshot.host %></td>
+      <td><%= snapshot.taken_at %></td>
+    </tr>
+  <% end %>
+</table>

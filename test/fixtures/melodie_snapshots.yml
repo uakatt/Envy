@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  environment_id: 1
+  host: MyString
+  system_information: MyText
+  system_details: MyText
+  taken_at: 2012-03-28 20:12:56
+
+two:
+  environment_id: 1
+  host: MyString
+  system_information: MyText
+  system_details: MyText
+  taken_at: 2012-03-28 20:12:56

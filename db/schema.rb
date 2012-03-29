@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319151624) do
+ActiveRecord::Schema.define(:version => 20120329031256) do
 
   create_table "environments", :force => true do |t|
     t.string   "code"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(:version => 20120319151624) do
     t.string   "app"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "melodie_snapshots", :force => true do |t|
+    t.integer  "environment_id"
+    t.string   "host"
+    t.text     "system_information"
+    t.text     "system_details"
+    t.datetime "taken_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
 end

@@ -100,11 +100,11 @@ class EnvironmentsController < ApplicationController
     Resque.enqueue(Envestigators::AccountsCount, @environment.id)
   end
 
-  # GET /environments/1/melodies
-  # GET /environments/1/melodies.json
-  def melodies
+  # GET /environments/1/take_melodie
+  # GET /environments/1/take_melodie.json
+  def take_melodie
     @environment = Environment.find(params[:id])
 
-    Resque.enqueue(Melodies::All, @environment.id)
+    Resque.enqueue(Melodies::SystemInformation, @environment.id)
   end
 end

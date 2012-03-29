@@ -1,7 +1,0 @@
-PrivatePub.subscribe "/envestigate/new", (data, channel) ->
-  if (data.loading)
-    $("#" + data.env + "-results")
-      .addClass('loading')
-      .html("<img src=\"" + data.loading + "\" />")
-  else if (data.message)
-    $("#" + data.env + "-results").removeClass('loading').html(data.message)

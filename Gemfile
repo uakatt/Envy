@@ -46,5 +46,5 @@ gem 'private_pub'
 gem 'selenium-webdriver'
 gem 'thin'
 
-gem 'melodie'
+gem 'melodie', '>= 0.1.1'
 

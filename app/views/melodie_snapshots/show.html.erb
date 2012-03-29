@@ -1,0 +1,32 @@
+<h2><%= @melodie_snapshot.host %></h2>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Environment:</b>
+  <%= @melodie_snapshot.environment.code %>
+</p>
+
+<b>System Information:</b>
+<table>
+  <% @melodie_snapshot.system_information.each do |k,v| %>
+    <tr><th><%= k %>:</th><td><%= v %></td></tr>
+  <% end %>
+</table>
+<br />
+
+<b>System Details:</b>
+<table>
+  <% @melodie_snapshot.system_details.each do |k,v| %>
+    <tr>
+      <th><%= k %>:</th>
+      <% if v.is_a? Array and v.size > 2 %>
+        <td>[<%= v.join(",<br />").html_safe %>]</td>
+      <% elsif v.is_a? Hash and v.keys.size > 2 %>
+        <td>{<%= v.map {|vk, vv| "#{vk}: #{vv}"}.join(",<br />").html_safe %>}</td>
+      <% else %>
+        <td><%= v %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
