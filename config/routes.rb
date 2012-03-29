@@ -1,7 +1,8 @@
 Envy::Application.routes.draw do
   resources :environments do
-    get :envestigate__build_number, :on => :member
+    get :envestigate__build_number,   :on => :member
     get :envestigate__accounts_count, :on => :member
+    get :melodies,                    :on => :member
   end
 
   # The priority is based upon order of creation:

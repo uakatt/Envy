@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'http://uaz-kf-a09.mosaic.arizona.edu/geminabox/'
 
 gem 'rails', '3.2.2'
 
@@ -44,4 +45,6 @@ gem 'resque'
 gem 'private_pub'
 gem 'selenium-webdriver'
 gem 'thin'
+
+gem 'melodie'
 
