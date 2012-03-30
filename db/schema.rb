@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329031256) do
+ActiveRecord::Schema.define(:version => 20120330142206) do
 
   create_table "environments", :force => true do |t|
     t.string   "code"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20120329031256) do
     t.string   "app"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "kfc"
+    t.string   "owner"
   end
 
   create_table "melodie_snapshots", :force => true do |t|

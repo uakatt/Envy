@@ -14,7 +14,11 @@
     <div style="display: inline; margin-right: 24px">
       <h1><a href="/environments">Envy</a></h1>
     </div>
-    <div style="display: inline;">Navigation | Links | Here</div>
+    <div style="display: inline;">
+      <%= link_to 'Environments', :environments %> |
+      <%= link_to 'State of the Universe', :controller => 'environments', :action => 'state_of_the_universe' %> |
+      <a href="/resque">Resque</a>
+    </div>
   </div>
 
 <%= yield %>

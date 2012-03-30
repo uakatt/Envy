@@ -14,11 +14,11 @@
 
 }).call(this);
 
-(function() {
+//(function() {
   <% @environments.each do |env| %>
-    $.get("/environments/<%= env.id %>/envestigate__build_number");
+//    $.get("/environments/<%= env.id %>/envestigate__build_number");
   <% end %>
-}).call(this);
+//}).call(this);
 </script>
 
 <h2>State of the Mosaic/Kuali Universe</h2>
@@ -50,7 +50,7 @@
         <% end %>
       </td>
       <td id="<%= environment.code.gsub(/ /, '-') %>-installed"></td>
-      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td style="text-align: center;"><%= boolean_symbol(environment.kfc) %></td>
       <td>
         <% if environment.melodie_snapshots.empty? %>
           <span class='tiny-error'>no melodie snapshots</span>
@@ -69,7 +69,7 @@
       <td><span class='tiny-note'>not tracked yet</span></td>
       <td><span class='tiny-note'>not tracked yet</span></td>
       <td><span class='tiny-note'>not tracked yet</span></td>
-      <td><span class='tiny-note'>not tracked yet</span></td>
+      <td><%= titlize_parens(environment.owner) %></td>
     </tr>
     <% end %>
   <% end %>
