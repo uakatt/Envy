@@ -13,15 +13,14 @@
   });
 
 }).call(this);
-
-//(function() {
-  <% @environments.each do |env| %>
-//    $.get("/environments/<%= env.id %>/envestigate__build_number");
-  <% end %>
-//}).call(this);
 </script>
 
 <h2>State of the Mosaic/Kuali Universe</h2>
+
+<div style="margin: 0.4em 0em;">
+  <!--<a href="/melodie_snapshots/take_melodie" data-remote="true" class="button gray">Take Snapshots of All</a>-->
+  <%= link_to 'Take Snapshots of All', "/melodie_snapshots/take_snapshots", :remote => true, :method => :post, :class=> "button gray" %>
+</div>
 
 <table>
   <% @environments.group_by(&:app).each do |app_name, environments| %>
@@ -51,19 +50,11 @@
       </td>
       <td id="<%= environment.code.gsub(/ /, '-') %>-installed"></td>
       <td style="text-align: center;"><%= boolean_symbol(environment.kfc) %></td>
-      <td>
-        <% if environment.melodie_snapshots.empty? %>
-          <span class='tiny-error'>no melodie snapshots</span>
-        <% else %>
-          <%= environment.latest_melodie_snapshot.system_information[:java_memory_used].inspect %>
-        <% end %>
+      <td id="<%= environment.id %>-java_memory_used">
+        <%= java_memory_used_with_updated_at_title(environment.id) %>
       </td>
       <td>
-        <% if environment.melodie_snapshots.empty? %>
-          <span class='tiny-error'>no melodie snapshots</span>
-        <% else %>
-          <%= environment.latest_melodie_snapshot.system_details[:java] %>
-        <% end %>
+        <%#= latest_melodie_stat_or_error(environment, :system_details, :java) %>
       </td>
       <td><span class='tiny-note'>not tracked yet</span></td>
       <td><span class='tiny-note'>not tracked yet</span></td>

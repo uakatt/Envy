@@ -3,4 +3,5 @@ class MelodieSnapshot < ActiveRecord::Base
 
   serialize :system_information
   serialize :system_details
+  serialize :snapshot_errors
 end

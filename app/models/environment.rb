@@ -11,6 +11,13 @@ class Environment < ActiveRecord::Base
   end
 
   def latest_melodie_snapshot
-    melodie_snapshots.order(:taken_at).first
+    melodie_snapshots.order(:taken_at).last
+  end
+
+  def latest_melodie_snapshots
+    latest = melodie_snapshots.order(:taken_at).last
+    return nil if latest.nil?
+
+    melodie_snapshots.where(:taken_at => latest.taken_at)
   end
 end

@@ -4,9 +4,12 @@ Envy::Application.routes.draw do
     get :envestigate__build_number,   :on => :member
     get :envestigate__accounts_count, :on => :member
     get :take_melodie,                :on => :member
+    get :recent_melodie_snapshots,    :on => :member
 
     resources :melodie_snapshots
   end
+
+  post "/melodie_snapshots/take_snapshots"
 
   root :to => "environments#index"
   mount Resque::Server, :at => '/resque'

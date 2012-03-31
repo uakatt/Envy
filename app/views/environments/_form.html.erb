@@ -28,6 +28,11 @@
     <%= f.text_field :app %>
   </div>
   <div class="field">
+    <%= f.label :hosts %><br />
+    (If this is a load-balanced environment, list unique identifiers for the hostnames, separated by commas, like "a50, a51")<br />
+    <%= f.text_field :hosts %>
+  </div>
+  <div class="field">
     <%= f.label :kfc, "kfc" %> (Coexistence?)<br />
     <%= f.text_field :kfc %>
   </div>

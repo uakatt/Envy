@@ -10,7 +10,7 @@
   <% @melodie_snapshots.each do |snapshot| %>
     <tr>
       <td><%= snapshot.host %></td>
-      <td><%= snapshot.taken_at %></td>
+      <td><%= snapshot.taken_at.localtime %></td>
     </tr>
   <% end %>
 </table>

@@ -1,0 +1,38 @@
+function poll(url) {
+  setTimeout(function() {
+    $.ajax({
+    url: url,
+    dataType: "json",
+    success: function(data) {
+               updatePageWith(data);
+             },
+    error: function(data, textStatus, errorThrown) {
+             poll(url);
+           }
+
+    });
+  }, 8000);
+}
+
+function updatePageWith(data) {
+  if (data.recent_melodie_snapshots === null)      { return; }
+  if (data.recent_melodie_snapshots === undefined) { return; }
+  td_id = "#" + data.recent_melodie_snapshots[0].environment_id + "-java_memory_used";
+  $(td_id).html('');
+  $.each(data.recent_melodie_snapshots, function(index, value) {
+    if (value.environment_id === null) { return; }
+    if (value.environment_id === undefined) { return; }
+    td_id = "#" + value.environment_id + "-java_memory_used";
+    if (index > 0) { $(td_id).append("<br />"); }
+    $(td_id).append(value.java_memory_used);
+  });
+  $(td_id).fadeOut().fadeIn();
+}
+
+<% timeout = 300 %>
+<% @environments.each do |environment| %>
+  setTimeout(function() {
+    poll('/environments/<%= environment.id %>/recent_melodie_snapshots');
+  }, <%= timeout %>);
+  <% timeout += 300 %>
+<% end %>

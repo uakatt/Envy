@@ -10,6 +10,17 @@ class EnvironmentsController < ApplicationController
     end
   end
 
+  # GET /environments/state_of_the_universe
+  # GET /environments/state_of_the_universe.json
+  def state_of_the_universe
+    @environments = Environment.order(:code)
+
+    respond_to do |format|
+      format.html # state_of_the_universe.html.erb
+      format.json { render json: @environments }
+    end
+  end
+
   # GET /environments/1
   # GET /environments/1.json
   def show
@@ -108,14 +119,19 @@ class EnvironmentsController < ApplicationController
     Resque.enqueue(Melodies::SystemInformation, @environment.id)
   end
 
-  # GET /environments/state_of_the_universe
-  # GET /environments/state_of_the_universe.json
-  def state_of_the_universe
-    @environments = Environment.order(:code)
+  # GET /environments/1/recent_melodie_snapshots
+  # GET /environments/1/recent_melodie_snapshots.json
+  def recent_melodie_snapshots
+    @environment = Environment.find(params[:id])
 
-    respond_to do |format|
-      format.html # state_of_the_universe.html.erb
-      format.json { render json: @environments }
+    @recent_melodie_snapshots = @environment.latest_melodie_snapshots
+    if @recent_melodie_snapshots.nil? or @recent_melodie_snapshots.first.nil? or @recent_melodie_snapshots.first.taken_at.localtime < (Time.now - 1.minutes)
+      response.status = 404
+      redirect_to "/404.html"
+    elsif @recent_melodie_snapshots.all?(&:snapshot_errors)
+      respond_to do |format|
+        format.json { render json: {:snapshot_error => "Melodie Error"} }
+      end
     end
   end
 end
