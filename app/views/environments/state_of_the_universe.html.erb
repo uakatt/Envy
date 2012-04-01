@@ -18,8 +18,9 @@
 <h2>State of the Mosaic/Kuali Universe</h2>
 
 <div style="margin: 0.4em 0em;">
-  <!--<a href="/melodie_snapshots/take_melodie" data-remote="true" class="button gray">Take Snapshots of All</a>-->
-  <%= link_to 'Take Snapshots of All', "/melodie_snapshots/take_snapshots", :remote => true, :method => :post, :class=> "button gray" %>
+  <%= link_to 'Take Snapshots of All', melodie_snapshots_take_snapshots_path, :remote => true, :method => :post, :class=> "button gray tinyb" %>
+  <%= link_to 'Take Snapshots of KFS Envs', melodie_snapshots_take_snapshots_path(:app => 'KFS'), :remote => true, :method => :post, :class=> "button gray tinyb" %>
+  <%= link_to 'Take Snapshots of KC Envs', melodie_snapshots_take_snapshots_path(:app => 'KC'), :remote => true, :method => :post, :class=> "button gray tinyb" %>
 </div>
 
 <table>
@@ -54,7 +55,7 @@
         <%= java_memory_used_with_updated_at_title(environment.id) %>
       </td>
       <td>
-        <%#= latest_melodie_stat_or_error(environment, :system_details, :java) %>
+        <%= latest_melodie_stat_or_error(environment, :system_details, :java) %>
       </td>
       <td><span class='tiny-note'>not tracked yet</span></td>
       <td><span class='tiny-note'>not tracked yet</span></td>
