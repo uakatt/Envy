@@ -14,7 +14,11 @@ class MelodieSnapshotsController < ApplicationController
   # POST /melodie_snapshots/take_snapshots
   # POST /melodie_snapshots/take_snapshots.json
   def take_snapshots
-    @environments = Environment.all
+    if params[:app]
+      @environments = Environment.where(:app => params[:app]).all
+    else
+      @environments = Environment.all
+    end
 
     @environments.each do |environment|
       Resque.enqueue(Melodies::SystemInformation, environment.id)
@@ -28,7 +32,7 @@ class MelodieSnapshotsController < ApplicationController
     @melodie_snapshot = @environment.melodie_snapshots.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+     format.html # show.html.erb
       format.json { render json: @melodie_snapshot }
     end
   end

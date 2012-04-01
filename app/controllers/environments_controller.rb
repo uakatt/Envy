@@ -127,7 +127,8 @@ class EnvironmentsController < ApplicationController
     @recent_melodie_snapshots = @environment.latest_melodie_snapshots
     if @recent_melodie_snapshots.nil? or @recent_melodie_snapshots.first.nil? or @recent_melodie_snapshots.first.taken_at.localtime < (Time.now - 1.minutes)
       response.status = 404
-      redirect_to "/404.html"
+      #redirect_to "/404.html"
+      render "fourohfour"
     elsif @recent_melodie_snapshots.all?(&:snapshot_errors)
       respond_to do |format|
         format.json { render json: {:snapshot_error => "Melodie Error"} }

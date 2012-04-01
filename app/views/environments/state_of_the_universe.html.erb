@@ -13,6 +13,42 @@
   });
 
 }).call(this);
+
+function poll(url) {
+  setTimeout(function() {
+    $.ajax({
+    url: url,
+    dataType: "json",
+    success: function(data) {
+               updatePageWith(data);
+             },
+    error: function(data, textStatus, errorThrown) {
+             poll(url);
+           }
+    });
+  }, 8000);
+}
+
+function updatePageWith(data) {
+  if (data.recent_melodie_snapshots === null)      { return; }
+  if (data.recent_melodie_snapshots === undefined) { return; }
+  jmu_id = "#" + data.recent_melodie_snapshots[0].environment_id + "-java_memory_used";
+  j_id   = "#" + data.recent_melodie_snapshots[0].environment_id + "-java";
+
+  if (data.recent_melodie_snapshots[0].java_memory_used) {
+    $(jmu_id).fadeOut();
+    $(jmu_id).html('');
+    $(jmu_id).append(data.recent_melodie_snapshots[0].java_memory_used);
+    $(jmu_id).fadeIn();
+  }
+
+  if (data.recent_melodie_snapshots[0].java) {
+    $(j_id).fadeOut();
+    $(j_id).html('');
+    $(j_id).append(data.recent_melodie_snapshots[0].java);
+    $(j_id).fadeIn();
+  }
+}
 </script>
 
 <h2>State of the Mosaic/Kuali Universe</h2>
@@ -54,7 +90,7 @@
       <td id="<%= environment.id %>-java_memory_used">
         <%= java_memory_used_with_updated_at_title(environment.id) %>
       </td>
-      <td>
+      <td id="<%= environment.id %>-java">
         <%= latest_melodie_stat_or_error(environment, :system_details, :java) %>
       </td>
       <td><span class='tiny-note'>not tracked yet</span></td>

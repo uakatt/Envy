@@ -11,5 +11,6 @@ json.recent_melodie_snapshots @recent_melodie_snapshots.all do |json, melodie_sn
     json.system_information melodie_snapshot.system_information
     json.system_details     melodie_snapshot.system_details
     json.java_memory_used   java_memory_used_with_updated_at_title(melodie_snapshot.environment_id)
+    json.java               latest_melodie_stat_or_error(melodie_snapshot.environment_id, :system_details, :java)
   #end
 end
