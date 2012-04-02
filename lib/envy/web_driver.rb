@@ -42,7 +42,7 @@ class Envy::WebDriver
         app = 'kra' if app == 'kc'
         url = "https://#{app[0,2]}-#{name}.mosaic.arizona.edu/#{app}-#{name}"
       else
-        raise ArgumentError.new("environment must look something like 'kfs-dev' or 'kc-stg'")
+        raise ArgumentError.new("environment must look something like 'kfs-dev' or 'kc-stg', not '#{code}'")
       end
     end
     @logger.info "Loading #{url}..." if @logger

@@ -9,6 +9,7 @@ module Envestigators
 
       Envy.driver.load(environment.code, environment.url)
       accounts_count = Envy.driver.accounts_count(:chartOfAccountsCode => 'UA', :accountName => 'A%')
+      Envy.driver.screenshot("//div[@id='lookup']/../text()[4]")
 
       #PrivatePub.publish_to(EnvestigateNew, update_results_with(environment, "#{accounts_count} Accounts (under 'UA', and named 'A%')"))
       PrivatePub.publish_to(EnvestigateNew,

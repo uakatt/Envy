@@ -19,7 +19,14 @@
           <a href="<%= environment.default_url %>">&#x2197;</a>
         <% end %>
       </td>
-      <td id="<%= environment.code.gsub(/ /, '-') %>-installed"></td>
+      <td id="<%= environment.code.gsub(/ /, '-') %>-installed">
+        <% installed = environment.envestigate_build_number %>
+        <% if installed =~ /^Error/ %>
+          <%= installed %>
+        <% else %>
+          <%= installed %>
+        <% end %>
+      </td>
       <td id="<%= environment.id %>-java_memory_used">
         <%= java_memory_used_with_updated_at_title(environment.id) %>
       </td>

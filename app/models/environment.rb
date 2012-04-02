@@ -20,4 +20,12 @@ class Environment < ActiveRecord::Base
 
     melodie_snapshots.where(:taken_at => latest.taken_at)
   end
+
+  def envestigate_build_number
+    Envy.driver.load(code, url)
+    build_number = Envy.driver.build_number
+    return build_number
+  rescue Selenium::WebDriver::Error::NoSuchElementError
+    return "Error. :( I coulndn't find it."
+  end
 end
