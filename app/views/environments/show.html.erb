@@ -98,4 +98,18 @@
 
 <p>Melodies are all of the different metrics that we can pull from JavaMelody. It may take a second to pull all of this melodious information, especially in load-balanced situations with multiple application servers.</p>
 
+<% melodie_snapshots = @environment.melodie_snapshots.order('taken_at DESC').limit(10) %>
+<table>
+  <tr>
+    <th>Host</th>
+    <th>Taken At</th>
+  </tr>
+  <% melodie_snapshots.each do |snapshot| %>
+    <tr>
+      <td><%= snapshot.host %></td>
+      <td><%= snapshot.taken_at.localtime %></td>
+    </tr>
+  <% end %>
+</table><br />
+
 <a href="/environments/<%= @environment.id %>/take_melodie" data-remote="true" class="button gray">Grab Melodies</a>

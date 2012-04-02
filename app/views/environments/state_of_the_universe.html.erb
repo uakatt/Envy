@@ -80,9 +80,9 @@ function updatePageWith(data) {
       <td>
         <%= link_to environment.code, environment, :title => environment.name %>
         <% if environment.url and environment.url != '' %>
-          | <a href="<%= environment.url %>">[go to there]</a>
+          <a href="<%= environment.url %>">&#x2197;</a>
         <% else %>
-          | <a href="<%= environment.default_url %>">[go to there]</a>
+          <a href="<%= environment.default_url %>">&#x2197;</a>
         <% end %>
       </td>
       <td id="<%= environment.code.gsub(/ /, '-') %>-installed"></td>

@@ -1,6 +1,7 @@
 Envy::Application.routes.draw do
   resources :environments do
     get :state_of_the_universe,       :on => :collection
+    get :email_screen,                :on => :collection
     get :envestigate__build_number,   :on => :member
     get :envestigate__accounts_count, :on => :member
     get :take_melodie,                :on => :member

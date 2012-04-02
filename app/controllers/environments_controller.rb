@@ -21,6 +21,17 @@ class EnvironmentsController < ApplicationController
     end
   end
 
+  # GET /environments/email_screen
+  # GET /environments/email_screen.json
+  def email_screen
+    @environments = Environment.order(:code)
+
+    respond_to do |format|
+      format.html # email_screen.html.erb
+      format.json { render json: @environments }
+    end
+  end
+
   # GET /environments/1
   # GET /environments/1.json
   def show
