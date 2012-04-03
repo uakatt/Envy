@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  envestigation_id: 1
+  time: 2012-04-02 10:29:48
+  title: MyString
+
+two:
+  envestigation_id: 1
+  time: 2012-04-02 10:29:48
+  title: MyString

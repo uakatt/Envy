@@ -1,6 +1,6 @@
 class Envy::WebDriver
   attr_reader :driver
-  attr_accessor :headless, :is_headless, :password, :pause_time, :username
+  attr_accessor :headless, :is_headless, :password, :pause_time, :screenshots_dir, :username
 
   extend Forwardable
   def_delegators :@driver, :close, :execute_script, :navigate, :switch_to,
@@ -55,9 +55,9 @@ class Envy::WebDriver
     @headless.destroy if @is_headless
   end
 
-  def screenshot_build_number
+  def screenshot_build_number(file_name = 'build.png')
     build = @driver.find_element(:id, 'build')
-    screenshot_element(build, 'build.png', [5, 5, 8])
+    screenshot_element(build, file_name, [5, 5, 8])
   end
 
   def screenshot_element(element, file_name, margin=0)
@@ -100,7 +100,8 @@ class Envy::WebDriver
     @driver.save_screenshot(File.join(@tmp_screenshots_dir, 'foo.png'))
     image = ChunkyPNG::Image.from_file(File.join(@tmp_screenshots_dir, 'foo.png'))
     image = image.crop adj_x_position, adj_y_position, width, height
-    image.to_image.save(File.join(@screenshots_dir, file_name), :fast_rgba)
+    #image.to_image.save(File.join(@screenshots_dir, file_name), :fast_rgba)
+    image.to_image.save(File.join(@screenshots_dir, file_name))
   end
 
   def select_frame(id)

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  environment_id: 1
+  time: 2012-04-02 10:21:14
+  title: MyString
+
+two:
+  environment_id: 1
+  time: 2012-04-02 10:21:14
+  title: MyString

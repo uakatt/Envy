@@ -40,11 +40,12 @@ gem 'jbuilder'
 
 gem 'chunky_png'
 gem 'oily_png'
+
 gem 'headless'
-gem 'resque', :require => 'resque/server'
+gem 'melodie', '>= 0.1.1'
+gem 'paperclip', '~> 3.0'
 gem 'private_pub'
+gem 'resque', :require => 'resque/server'
 gem 'selenium-webdriver'
 gem 'thin'
-
-gem 'melodie', '>= 0.1.1'
 

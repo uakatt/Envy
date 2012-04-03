@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120330163701) do
+ActiveRecord::Schema.define(:version => 20120402211525) do
+
+  create_table "envestigations", :force => true do |t|
+    t.integer  "environment_id"
+    t.datetime "time"
+    t.string   "title"
+    t.text     "text"
+    t.text     "exception"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "environments", :force => true do |t|
     t.string   "code"
@@ -34,6 +44,18 @@ ActiveRecord::Schema.define(:version => 20120330163701) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.text     "snapshot_errors"
+  end
+
+  create_table "screenshots", :force => true do |t|
+    t.integer  "envestigation_id"
+    t.datetime "time"
+    t.string   "title"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
 end
