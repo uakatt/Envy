@@ -1,0 +1,2 @@
+module EnvestigationsHelper
+end

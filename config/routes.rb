@@ -8,9 +8,11 @@ Envy::Application.routes.draw do
     get :recent_melodie_snapshots,    :on => :member
 
     resources :melodie_snapshots
+    resources :envestigations
   end
 
-  post "/melodie_snapshots/take_snapshots"
+  post '/melodie_snapshots/take_snapshots'
+  get  '/envestigations' => 'envestigations#index'
 
   root :to => "environments#index"
   mount Resque::Server, :at => '/resque'

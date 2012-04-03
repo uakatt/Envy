@@ -21,12 +21,13 @@
       </td>
       <td id="<%= environment.code.gsub(/ /, '-') %>-installed" style="text-align: center;">
         <% envestigation = environment.envestigate_build_number %>
-        <% installed = envestigation.text %>
+        <% installed     = envestigation.text %>
+        <% screenshot    = envestigation.screenshots.first %>
         <% if installed =~ /^Error/ %>
           <%= installed %>
         <% else %>
           <%#= installed %>
-          <%= image_tag envestigation.screenshots.first.image.url(:thumb) %>
+          <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
         <% end %>
       </td>
       <td id="<%= environment.id %>-java_memory_used">

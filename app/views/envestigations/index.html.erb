@@ -1,0 +1,30 @@
+<h2><strong style="color: #BB0000; letter-spacing: -0.05em">ENV</strong><span style="letter-spacing: 0.04em">estigations</span></h2>
+
+<% @envestigation_groups.each do |time, title_groups| %>
+  <h3>Taken Between <%= time %> and <%= (time + 600).strftime("%H:%M:%S") %></h3>
+  <% title_groups.group_by(&:title).each do |title, envestigations| %>
+    <h4>"<%= title %>" ENVestigations</h4>
+    <table>
+      <tr>
+        <th>Environment</th>
+        <th>Title</th>
+        <th>Text</th>
+        <th>Screenshot</th>
+      </tr>
+      <% envestigations.each do |envestigation| %>
+        <tr>
+          <td><%= envestigation.environment.code %></td>
+          <td><%= envestigation.title %></td>
+          <td><%= envestigation.text %></td>
+          <td>
+            <% screenshot = envestigation.screenshots.first %>
+            <% if screenshot.nil? %>
+            <% else %>
+              <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table><br />
+  <% end %>
+<% end %>

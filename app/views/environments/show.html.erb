@@ -67,6 +67,30 @@
 
 <h2><strong style="color: #BB0000; letter-spacing: -0.05em">ENV</strong><span style="letter-spacing: 0.04em">estigations</span></h2>
 
+<% envestigations = @environment.envestigations.order('time DESC').limit(10) %>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Taken At</th>
+    <th>Text</th>
+    <th>Screenshot</th>
+  </tr>
+  <% envestigations.each do |envestigation| %>
+    <tr>
+      <td><%= envestigation.title %></td>
+      <td><%= envestigation.time.localtime %></td>
+      <td><%= envestigation.text %></td>
+      <td>
+        <% screenshot = envestigation.screenshots.first %>
+        <% if screenshot.nil? %>
+        <% else %>
+          <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
 <p>You can kick of a small envestigation of <strong style="color: #003366;"><%= @environment.code %></strong>. Each envestigation will run a Selenium script against the environment, returning various results to you.</p>
 
 <table>
