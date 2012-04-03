@@ -13,6 +13,7 @@ Envy::Application.routes.draw do
 
   post '/melodie_snapshots/take_snapshots'
   get  '/envestigations' => 'envestigations#index'
+  get  '/envestigations/:time' => 'envestigations#group_by_time'
 
   root :to => "environments#index"
   mount Resque::Server, :at => '/resque'

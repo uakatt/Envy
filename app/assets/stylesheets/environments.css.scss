@@ -36,7 +36,23 @@ h2 {
   color: $ua-red;
   font-family: 'Volkhov',serif;
   font-size: 2.2em;
-  margin: 0.4em 0em;
+  margin: 0.5em 0em;
+  font-weight: 400;
+}
+
+h3 {
+  color: $ua-blue;
+  font-family: 'Volkhov',serif;
+  font-size: 1.5em;
+  margin: 1em 0em;
+  font-weight: 400;
+}
+
+h4 {
+  color: $ua-blue;
+  font-family: 'Volkhov',serif;
+  font-size: 1.2em;
+  margin: 0.8em 0em;
   font-weight: 400;
 }
 
