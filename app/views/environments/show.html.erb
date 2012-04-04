@@ -80,11 +80,11 @@
       <td><%= envestigation.title %></td>
       <td><%= envestigation.time.localtime %></td>
       <td><%= envestigation.text %></td>
-      <td>
+      <td class="screenshot">
         <% screenshot = envestigation.screenshots.first %>
         <% if screenshot.nil? %>
         <% else %>
-          <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
+          <%= screenshot_tag screenshot %>
         <% end %>
       </td>
     </tr>

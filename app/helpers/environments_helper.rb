@@ -80,6 +80,10 @@ module EnvironmentsHelper
     results.each(&:html_safe).join('<br />').html_safe
   end
 
+  def screenshot_tag(screenshot)
+    image_tag(screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s)
+  end
+
   def titlize_parens(value)
     if value =~ /^(.+?) \((.+)\)$/
       content_tag :span, $1, :title => $2

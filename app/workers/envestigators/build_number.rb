@@ -15,12 +15,14 @@ module Envestigators
                            {:env => environment.code.gsub(/ /, '-'),
                             :envestigation => 'build-number',
                             :message => "Build Number: #{build_number}",
-                            :screenshot => "build.png"})
+                            :screenshot => 'build.png'})
     rescue Selenium::WebDriver::Error::NoSuchElementError
+      Envy.driver.screenshot()
       PrivatePub.publish_to(EnvestigateNew,
                            {:env => environment.code.gsub(/ /, '-'),
                             :envestigation => 'build-number',
                             :message => "Error. :( I coulndn't find it.",
+                            :screenshot => 'screenshot.png',
                             :add_class => 'error'})
     end
   end

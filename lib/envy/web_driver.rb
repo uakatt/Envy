@@ -55,6 +55,10 @@ class Envy::WebDriver
     @headless.destroy if @is_headless
   end
 
+  def screenshot(file_name='screenshot.png')
+    @driver.save_screenshot(File.join(@screenshots_dir, file_name))
+  end
+
   def screenshot_build_number(file_name = 'build.png')
     build = @driver.find_element(:id, 'build')
     screenshot_element(build, file_name, [5, 5, 8])

@@ -19,15 +19,20 @@
           <a href="<%= environment.default_url %>">&#x2197;</a>
         <% end %>
       </td>
-      <td id="<%= environment.code.gsub(/ /, '-') %>-installed" style="text-align: center;">
+      <td id="<%= environment.code.gsub(/ /, '-') %>-installed" class="screenshot" style="text-align: center;">
         <% envestigation = environment.envestigate_build_number %>
         <% installed     = envestigation.text %>
         <% screenshot    = envestigation.screenshots.first %>
         <% if installed =~ /^Error/ %>
           <%= installed %>
+          <% if screenshot %>
+            <br />
+            <a href="<%= screenshot.image.url %>"><%= screenshot_tag screenshot %></a>
+          <% end %>
+        <% elsif screenshot %>
+          <%= screenshot_tag screenshot %>
         <% else %>
-          <%#= installed %>
-          <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
+          <%= installed %>
         <% end %>
       </td>
       <td id="<%= environment.id %>-java_memory_used">

@@ -15,14 +15,16 @@
       </tr>
       <% envestigations.each do |envestigation| %>
         <tr>
-          <td><%= envestigation.environment.code %></td>
+          <td><%= link_to envestigation.environment.code, envestigation.environment %></td>
           <td><%= envestigation.title %></td>
           <td><%= envestigation.text %></td>
           <td>
             <% screenshot = envestigation.screenshots.first %>
             <% if screenshot.nil? %>
             <% else %>
-              <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
+              <a href="<%= screenshot.image.url %>">
+                <%= image_tag screenshot.image.url(:thumb), :title => screenshot.title + ', taken at '+screenshot.time.localtime.to_s %>
+              </a>
             <% end %>
           </td>
         </tr>
