@@ -25,6 +25,7 @@ class EnvironmentsController < ApplicationController
   # GET /environments/email_screen.json
   def email_screen
     @environments = Environment.order(:code)
+    @envestigations = @environments.map { |env| env.envestigate_build_number }
 
     respond_to do |format|
       format.html # email_screen.html.erb
@@ -36,7 +37,6 @@ class EnvironmentsController < ApplicationController
   # GET /environments/1.json
   def show
     @environment = Environment.find(params[:id])
-    @envestigations = @environments.map { |env| env.envestigate_build_number }
 
     respond_to do |format|
       format.html # show.html.erb
