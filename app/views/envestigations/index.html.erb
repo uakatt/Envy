@@ -1,7 +1,9 @@
 <h2><strong style="color: #BB0000; letter-spacing: -0.05em">ENV</strong><span style="letter-spacing: 0.04em">estigations</span></h2>
 
 <% @envestigation_groups.each do |time, title_groups| %>
-  <h3>Taken Between <%= time %> and <%= (time + 600).strftime("%H:%M:%S") %></h3>
+  <h3><a href="/envestigations/<%= time.strftime("%y-%m-%d_%H:%M:%S_%z") %>">
+      Taken Between <%= time %> and <%= (time + 600).strftime("%H:%M:%S") %>
+  </a></h3>
   <% title_groups.group_by(&:title).each do |title, envestigations| %>
     <h4>"<%= title %>" ENVestigations</h4>
     <table>
