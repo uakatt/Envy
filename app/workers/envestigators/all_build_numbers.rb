@@ -3,8 +3,7 @@ module Envestigators
     @queue = :webdriver_queue
 
     def self.perform()
-      environments = Environment.all
-      envestigations = environments.map { |env| env.envestigate_build_number }
+      NotificationMailer.environments_notification.deliver
     end
   end
 end
