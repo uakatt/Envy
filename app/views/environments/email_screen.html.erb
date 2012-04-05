@@ -36,7 +36,8 @@
           <% end %>
         </td>
         <td id="<%= environment.id %>-java_memory_used">
-          <%= java_memory_used_with_updated_at_title(environment.id) %>
+          <%#= java_memory_used_with_updated_at_title(environment.id) %>
+          <%= environment.java_memory_used_with_updated_at_title %>
         </td>
       </tr>
     <% end %>

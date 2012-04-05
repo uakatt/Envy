@@ -7,8 +7,41 @@ class Environment < ActiveRecord::Base
       app = $1.downcase
       name = $2.downcase
       app = 'kra' if app == 'kc'
-      "https://#{app[0,2]}-#{name}.mosaic.arizona.edu/#{app}-#{name}"
+      "https://#{app[0,2]}-#{name}.mosaic.arizona.edu/#{app}-#{name}/"
     end
+  end
+
+  def java_memory_used_with_updated_at_title
+    return content_tag(:span, "no melodie snapshots", :class => 'tiny-error') if latest_melodie_snapshots.nil?
+
+    results = []
+    latest_melodie_snapshots.each do |snapshot|
+      result = ''
+      if snapshot.snapshot_errors
+        text = "Melodie Error: " + snapshot.snapshot_errors.to_s
+        result += "<span class='tiny-error'>#{text}</span>"
+        results << result
+        next
+      end
+
+      system_information = snapshot.system_information
+      if system_information.nil?
+        text = "No System Information..."
+        result += "<span class='tiny-error'>#{text}</span>"
+        results << result
+        next
+      end
+
+      text = system_information[:java_memory_used].join(' out of ')
+
+      if snapshot.taken_at
+        result += "<span title=\"Taken at: #{snapshot.taken_at.localtime}\">#{text}</span>"
+      else
+        result += text
+      end
+      results << result
+    end
+    results.each(&:html_safe).join('<br />').html_safe
   end
 
   def latest_melodie_snapshot

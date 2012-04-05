@@ -1,5 +1,5 @@
 all_build_numbers_envestigation:
-  cron: 13 18 * * *
+  cron: 04 15 * * *
   class: Envestigators::AllBuildNumbers
   description: All Build Numbers Envestigation
 

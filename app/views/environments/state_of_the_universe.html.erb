@@ -88,7 +88,8 @@ function updatePageWith(data) {
       <td id="<%= environment.code.gsub(/ /, '-') %>-installed"></td>
       <td style="text-align: center;"><%= boolean_symbol(environment.kfc) %></td>
       <td id="<%= environment.id %>-java_memory_used">
-        <%= java_memory_used_with_updated_at_title(environment.id) %>
+        <%#= java_memory_used_with_updated_at_title(environment.id) %>
+        <%= environment.java_memory_used_with_updated_at_title %>
       </td>
       <td id="<%= environment.id %>-java">
         <%= latest_melodie_stat_or_error(environment, :system_details, :java) %>
