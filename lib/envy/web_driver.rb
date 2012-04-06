@@ -23,8 +23,8 @@ class Envy::WebDriver
     @driver = Selenium::WebDriver.for :firefox, :profile => @profile
     @screenshots_dir = File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'public', 'system', 'screenshots')
     @tmp_screenshots_dir = File.join(File.dirname(File.expand_path(__FILE__)), '..', '..', 'tmp', 'screenshots')
-    FileUtils.mkdir @tmp_screenshots_dir unless File.exist? @tmp_screenshots_dir
-    FileUtils.mkdir     @screenshots_dir unless File.exist?     @screenshots_dir
+    FileUtils.mkdir_p @tmp_screenshots_dir unless File.exist? @tmp_screenshots_dir
+    FileUtils.mkdir_p     @screenshots_dir unless File.exist?     @screenshots_dir
   end
 
   def build_number
