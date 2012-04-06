@@ -136,4 +136,4 @@
   <% end %>
 </table><br />
 
-<a href="/environments/<%= @environment.id %>/take_melodie" data-remote="true" class="button gray">Grab Melodies</a>
+<%= link_to 'Grab Melodies', take_melodie_environment_path(@environment), :remote => true, :class => 'button gray' %>
