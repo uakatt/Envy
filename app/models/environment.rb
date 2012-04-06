@@ -12,7 +12,7 @@ class Environment < ActiveRecord::Base
   end
 
   def java_memory_used_with_updated_at_title
-    return content_tag(:span, "no melodie snapshots", :class => 'tiny-error') if latest_melodie_snapshots.nil?
+    return "<span class='tiny-error'>no melodie snapshots</span>" if latest_melodie_snapshots.nil?
 
     results = []
     latest_melodie_snapshots.each do |snapshot|
