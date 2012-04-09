@@ -1,5 +1,7 @@
-<% if @environment.id % 2 == 0 %>
-  <% publish_to "/envestigate/new", :loading => "/assets/ajax-loader-003366.gif", :env => @environment.code.gsub(/ /, '-'), :envestigation => 'build-number' %>
-<% else %>
-  <% publish_to "/envestigate/new", :loading => "/assets/ajax-loader-CC0033.gif", :env => @environment.code.gsub(/ /, '-'), :envestigation => 'build-number' %>
-<% end %>
+<% loader_gif = @environment.id % 2 == 0 ? "ajax-loader-003366.gif" : "ajax-loader-CC0033.gif" %>
+
+<%# if @environment.id % 2 == 0 %>
+  <% publish_to "/envestigate/new", :loading => asset_path(loader_gif), :env => @environment.code.gsub(/ /, '-'), :envestigation => 'build-number' %>
+<%# else %>
+  <%# publish_to "/envestigate/new", :loading => asset_path("ajax-loader-CC0033.gif"), :env => @environment.code.gsub(/ /, '-'), :envestigation => 'build-number' %>
+<%# end %>

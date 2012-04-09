@@ -11,7 +11,7 @@
 
       if (data.screenshot) {
         $("#" + data.envestigation + "-screenshot")
-          .html("<img src='/system/screenshots/" + data.screenshot + "' />")
+        .html("<img src='<%= ActionController::Base.config.relative_url_root || '/' %>system/screenshots/" + data.screenshot + "' />")
       }
 
       return $("#" + data.envestigation + "-results");
@@ -102,7 +102,8 @@
   <tr>
     <td>
       <strong>Build Number</strong>
-      <a href="/environments/<%= @environment.id %>/envestigate__build_number" data-remote="true" style="float:right; margin: 0" class="button gray">Go</a>
+      <%= link_to 'Go', envestigate__build_number_environment_url(@environment), :remote => true, :style => "float:right; margin: 0", :class => 'button gray' %>
+      <!-- <a href="/environments/<%= @environment.id %>/envestigate__build_number" data-remote="true" style="float:right; margin: 0" class="button gray">Go</a> -->
       <p>Load the main menu and extracts the build number from the page.</p>
     </td>
     <td id="build-number-results"></td><td id="build-number-screenshot" class="screenshot"></td>

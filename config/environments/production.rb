@@ -64,4 +64,12 @@ Envy::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  #
+  # srawlins new configs
+  #
+  # config.action_controller.relative_url_root can be used to tell Rails that
+  # you are deploying to a subdirectory. The default is
+  # ENV['RAILS_RELATIVE_URL_ROOT'].
+  config.action_controller.relative_url_root = '/envy/'
 end

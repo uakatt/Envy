@@ -1,7 +1,9 @@
-<% publish_to "/envestigate/new" do %>
-  <% if @environment.id % 2 == 0 %>
-    $("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"assets/ajax-loader-003366.gif\" />");
-  <% else %>
-    $("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"assets/ajax-loader-CC0033.gif\" />");
-  <% end %>
-<% end %>
+<% loader_gif = @environment.id % 2 == 0 ? "ajax-loader-003366.gif" : "ajax-loader-CC0033.gif" %>
+<% publish_to "/envestigate/new", :loading => asset_path(loader_gif), :env => @environment.code.gsub(/ /, '-'), :envestigation => 'accounts-count' %>
+<%# publish_to "/envestigate/new" do %>
+  <%# if @environment.id % 2 == 0 %>
+  <!-- $("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"assets/ajax-loader-003366.gif\" />"); -->
+  <%# else %>
+  <!-- $("#<%= @environment.code.gsub(/ /, '-') %>-results").addClass('loading').html("<img src=\"assets/ajax-loader-CC0033.gif\" />"); -->
+  <%# end %>
+<%# end %>
