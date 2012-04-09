@@ -1,7 +1,8 @@
 <% timeout = 4000 %>
 <% @environments.each do |environment| %>
   setTimeout(function() {
-    poll('/environments/<%= environment.id %>/recent_melodie_snapshots');
+    //poll('/environments/<%= environment.id %>/recent_melodie_snapshots');
+    poll("<%= recent_melodie_snapshots_environment_url(environment) %>");
   }, <%= timeout %>);
   <% timeout += 300 %>
 <% end %>
