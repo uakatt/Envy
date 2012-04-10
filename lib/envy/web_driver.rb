@@ -3,7 +3,7 @@ class Envy::WebDriver
   attr_accessor :headless, :is_headless, :password, :pause_time, :screenshots_dir, :username
 
   extend Forwardable
-  def_delegators :@driver, :close, :execute_script, :navigate, :switch_to,
+  def_delegators :@driver, :close, :execute_script, :find_element, :navigate, :switch_to,
                            :window_handle, :window_handles
 
   include Envy::KfsBehaviors
@@ -42,7 +42,7 @@ class Envy::WebDriver
         app = $1.downcase
         name = $2.downcase
         app = 'kra' if app == 'kc'
-        url = "https://#{app[0,2]}-#{name}.mosaic.arizona.edu/#{app}-#{name}"
+        url = "https://#{app[0,2]}-#{name}.mosaic.arizona.edu/#{app}-#{name}/"
       else
         raise ArgumentError.new("environment must look something like 'kfs-dev' or 'kc-stg', not '#{code}'")
       end
@@ -61,12 +61,12 @@ class Envy::WebDriver
     @driver.save_screenshot(File.join(@screenshots_dir, file_name))
   end
 
-  def screenshot_build_number(file_name = 'build.png')
+  def screenshot_build_number(file_name='build.png')
     build = @driver.find_element(:id, 'build')
     screenshot_element(build, file_name, [5, 5, 8])
   end
 
-  def screenshot_element(element, file_name, margin=0)
+  def screenshot_element(element, file_name='screenshot.png', margin=0)
     x_position = element.location.x
     y_position = element.location.y
     width      = element.size.width
@@ -128,5 +128,22 @@ class Envy::WebDriver
     @driver.find_element(:css, 'input#username.required')
   rescue Selenium::WebDriver::Error::NoSuchElementError
     nil
+  end
+
+  def wrap_with_span(xpath)
+    id = "span_#{Time.now.to_i}"
+    script = <<SCRIPT
+mov = function(c) {
+  el = document.evaluate(c, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  newSpan = document.createElement('span');
+  newSpan.textContent = el.textContent;
+  newSpan.id = '#{id}';
+  el.parentNode.insertBefore(newSpan, el);
+  el.textContent = '';
+}
+return mov("#{xpath}");
+SCRIPT
+    @driver.execute_script(script)
+    return id
   end
 end
