@@ -42,7 +42,23 @@ Please do! Contributing is easy. Please read the CONTRIBUTING.md document for mo
 Usage
 -----
 
-Envy is meant to be used primarily as a web application, and a few other processes. Here's how I start the whole damn thing up. It takes a lot of terminal windows. Here's the resque server:
+Firstly, I have gitignored `config/initializers/setup_mail.rb`. Fill it with this:
+
+```ruby
+ActionMailer::Base.smtp_settings = {
+  :address => 'smtpgate.email.arizona.edu',
+  :port => 25,
+  :user_name => <UA NetID>,
+  :password => <UA NetID Password>,
+  :authentication => 'plain'
+}
+```
+
+Next, grab all the crazy gems we need:
+
+    bundle
+
+OK, Envy is meant to be used primarily as a web application, and a few other processes. Here's how I start the whole damn thing up. It takes a lot of terminal windows. Here's the resque server:
 
     $ QUEUE='*' rake resque:work
 
