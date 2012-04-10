@@ -90,6 +90,14 @@ table td.error {
   font-weight: bold;
 }
 
+div.field {
+  max-width: 720px;
+}
+
+code {
+  white-space: nowrap;
+}
+
 a:link,
 a:visited,
 a:active {

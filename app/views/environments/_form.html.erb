@@ -13,32 +13,38 @@
 
   <div class="field">
     <%= f.label :code %><br />
-    <%= f.text_field :code %>
+    <%= f.text_field :code, :size => 7 %><br />
+    The environment's <strong>code</strong> will be typically be its identification in a visual table of environments. If the environment's URL is in the typical style, then it will be generated from the environment's code, like so: <code>code == 'kfs dev' =&gt; url = 'https://kf-dev.mosaic.arizona.edu/kfs-dev/'</code>.
   </div>
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name %><br />
+    A proper, title-casey name for the environment, such as 'Financials Development'
   </div>
   <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url %>
+    <%= f.label :url, 'URL' %><br />
+    <%= f.text_field :url %><br />
+    If the <strong>URL</strong> follows the standard from derived from the <strong>code</strong>, then you may leave this blank. Otherwise please insert the full URL, including 'http[s]://', all characters before 'portal.do'.
   </div>
   <div class="field">
     <%= f.label :app %><br />
-    <%= f.text_field :app %>
+    <%= f.text_field :app, :size => 3 %><br />
+    This will, at some point, be its own type table. For now, use 'KFS' or 'KC', and your environments will be grouped by <strong>app</strong>.
   </div>
   <div class="field">
     <%= f.label :hosts %><br />
-    (If this is a load-balanced environment, list unique identifiers for the hostnames, separated by commas, like "a50, a51")<br />
-    <%= f.text_field :hosts %>
+    <%= f.text_field :hosts, :size => 13 %><br />
+    If this is a load-balanced environment, list unique identifiers for the <strong>hosts</strong>, separated by commas, like "a50, a51".
   </div>
   <div class="field">
     <%= f.label :kfc, "kfc" %> (Coexistence?)<br />
-    <%= f.text_field :kfc %>
+    <%= f.text_field :kfc %><br />
+    Just for the State of the Universe page. 'yes' or 'no' or the like
   </div>
   <div class="field">
     <%= f.label :owner %><br />
-    <%= f.text_field :owner %>
+    <%= f.text_field :owner %><br />
+    Can be "Full Name (email@address.in.parens)" for auto-titling
   </div>
   <div class="actions">
     <%= f.submit %>
