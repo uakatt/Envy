@@ -27,6 +27,14 @@ module Envestigators
                             :message => "Error. :( I coulndn't find it.",
                             :screenshot => 'screenshot.png',
                             :add_class => 'error'})
+    rescue Timeout::Error
+      Envy.driver.screenshot()
+      PrivatePub.publish_to(EnvestigateNew,
+                           {:env => environment.code.gsub(/ /, '-'),
+                            :envestigation => 'build-number',
+                            :message => "Error. :( Timeout.",
+                            :screenshot => 'screenshot.png',
+                            :add_class => 'error'})
     end
   end
 end
